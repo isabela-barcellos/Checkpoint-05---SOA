@@ -5,5 +5,9 @@ import jakarta.validation.constraints.NotNull;
 
 public record DadosCancelamentoInstrucao(
         @NotNull
-        MotivoCancelamentoInstrucao motivo) {
+        Long idInstrucao,
+
+        @NotNull
+        MotivoCancelamentoInstrucao motivoCancelamento
+) {
 }

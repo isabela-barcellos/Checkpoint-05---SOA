@@ -3,17 +3,18 @@ package br.com.fiap3espb.auto_escola_3espb.adapter.in.controller;
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.request.instrucao.DadosAgendamentoInstrucao;
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.request.instrucao.DadosCancelamentoInstrucao;
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.response.instrucao.DadosDetalhamentoInstrucao;
+import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.response.instrutor.DadosListagemInstrutor;
 import br.com.fiap3espb.auto_escola_3espb.application.core.usecase.AgendaDeInstrucoes;
 import br.com.fiap3espb.auto_escola_3espb.application.core.usecase.CancelamentoDeInstrucao;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/instrucoes")
@@ -31,10 +32,15 @@ public class InstrucaoController {
         return ResponseEntity.ok(dto);
     }
 
-    @PatchMapping("/{id}/cancelamento")
+    @PatchMapping("/cancelamento")
     public ResponseEntity<DadosDetalhamentoInstrucao> cancelarInstrucao(
-            @PathVariable Long id,
             @RequestBody @Valid DadosCancelamentoInstrucao dados) {
-        return ResponseEntity.ok(cancelamentoDeInstrucao.cancelar(id, dados));
+
+        return ResponseEntity.ok(cancelamentoDeInstrucao.cancelar(dados.idInstrucao(), dados));
+    }
+    @GetMapping
+    public ResponseEntity<List<DadosDetalhamentoInstrucao>> listarInstrucao() {
+
+        return ResponseEntity.ok(agenda.listar());
     }
 }

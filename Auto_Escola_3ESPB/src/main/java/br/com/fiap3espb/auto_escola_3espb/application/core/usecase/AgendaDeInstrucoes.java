@@ -14,6 +14,7 @@ import br.com.fiap3espb.auto_escola_3espb.exception.type.instrutor.InstrutorNotF
 import br.com.fiap3espb.auto_escola_3espb.adapter.out.repository.persistence.InstrutorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,5 +69,11 @@ public class AgendaDeInstrucoes {
         return instrutorRepository
                 .escolherInstrutorAleatorioDisponivel(dados.especialidade().name(), dados.data())
                 .orElse(null);
+    }
+    public List<DadosDetalhamentoInstrucao> listar() {
+        // Alterado de 'repository' para 'instrucaoRepository' para bater com seu @Autowired
+        return instrucaoRepository.findAll().stream()
+                .map(DadosDetalhamentoInstrucao::new)
+                .toList();
     }
 }

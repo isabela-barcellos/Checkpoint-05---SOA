@@ -23,7 +23,7 @@ public class CancelamentoDeInstrucao {
     public DadosDetalhamentoInstrucao cancelar(Long idInstrucao, DadosCancelamentoInstrucao dados) {
         Instrucao instrucao = instrucaoRepository.findById(idInstrucao)
                 .orElseThrow(() -> new EntityNotFoundException("Instrução não encontrada."));
-        instrucao.cancelar(dados.motivo(), LocalDateTime.now());
+        instrucao.cancelar(dados.motivoCancelamento(), LocalDateTime.now());
         return new DadosDetalhamentoInstrucao(instrucaoRepository.save(instrucao));
     }
 }

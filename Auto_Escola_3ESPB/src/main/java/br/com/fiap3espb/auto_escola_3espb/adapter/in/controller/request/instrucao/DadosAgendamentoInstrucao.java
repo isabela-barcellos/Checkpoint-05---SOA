@@ -15,6 +15,6 @@ public record DadosAgendamentoInstrucao(
 
         @NotNull
         @Future
-        @JsonFormat(pattern = "dd/MM/yyyy - HH:mm") //yyyy-MM-ddTHH:mm:ss
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDateTime data) {
 }
