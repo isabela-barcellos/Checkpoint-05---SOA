@@ -6,8 +6,8 @@ import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.request.instruto
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.request.instrutor.DadosCadastroInstrutor;
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.response.instrutor.DadosDetalhamentoInstrutor;
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.response.instrutor.DadosListagemInstrutor;
-import br.com.fiap3espb.auto_escola_3espb.application.core.domain.model.Instrutor;
 import br.com.fiap3espb.auto_escola_3espb.adapter.out.repository.persistence.InstrutorRepository;
+import br.com.fiap3espb.auto_escola_3espb.application.core.domain.model.Instrutor;
 import br.com.fiap3espb.auto_escola_3espb.exception.type.instrutor.InstrutorNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;

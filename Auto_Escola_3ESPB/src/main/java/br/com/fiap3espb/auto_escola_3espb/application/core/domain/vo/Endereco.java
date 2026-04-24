@@ -1,14 +1,13 @@
 package br.com.fiap3espb.auto_escola_3espb.application.core.domain.vo;
 
+import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.request.endereco.DadosEndereco;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Endereco {
     private String logradouro;
     private String numero;
@@ -17,6 +16,35 @@ public class Endereco {
     private String cidade;
     private String uf;
     private String cep;
+
+    public Endereco(
+            String logradouro,
+            String numero,
+            String complemento,
+            String bairro,
+            String cidade,
+            String uf,
+            String cep) {
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.cep = cep;
+    }
+
+    public Endereco(DadosEndereco dados) {
+        this(
+                dados.logradouro(),
+                dados.numero(),
+                dados.complemento(),
+                dados.bairro(),
+                dados.cidade(),
+                dados.uf(),
+                dados.cep()
+        );
+    }
 
     public void atualizarInformacoes(
             String logradouro,
@@ -47,5 +75,35 @@ public class Endereco {
         if(cep != null) {
             this.cep = cep;
         }
+    }
+
+    public void atualizarInformacoes(Endereco novo) {
+        if(novo == null) {
+            return;
+        }
+        atualizarInformacoes(
+                novo.getLogradouro(),
+                novo.getNumero(),
+                novo.getComplemento(),
+                novo.getBairro(),
+                novo.getCidade(),
+                novo.getUf(),
+                novo.getCep()
+        );
+    }
+
+    public void atualizarInformacoes(DadosEndereco dados) {
+        if(dados == null) {
+            return;
+        }
+        atualizarInformacoes(
+                dados.logradouro(),
+                dados.numero(),
+                dados.complemento(),
+                dados.bairro(),
+                dados.cidade(),
+                dados.uf(),
+                dados.cep()
+        );
     }
 }

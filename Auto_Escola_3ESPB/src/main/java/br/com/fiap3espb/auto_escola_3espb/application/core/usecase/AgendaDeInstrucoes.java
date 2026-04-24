@@ -65,6 +65,8 @@ public class AgendaDeInstrucoes {
         if(dados.especialidade() == null) {
             throw new ValidacaoException("Especialidade é obrigatória quanto o instrutor não for informado!");
         }
-        return instrutorRepository.escolherInstrutorAleatorioDisponivel(dados.especialidade(), dados.data());
+        return instrutorRepository
+                .escolherInstrutorAleatorioDisponivel(dados.especialidade().name(), dados.data())
+                .orElse(null);
     }
 }

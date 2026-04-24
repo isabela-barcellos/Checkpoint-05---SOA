@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "instrutores")
-@Entity(name = "Intrutor")
+@Table(name = "alunos")
+@Entity(name = "Aluno")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,6 +38,9 @@ public class Aluno {
         this.endereco = new Endereco(dados.endereco());
     }
 
+    /**
+     * Atualiza nome, telefone e endereço. E-mail e CPF não são alteráveis (regra do CRUD).
+     */
     public void atualizarInformacoes(DadosAtualizacaoAluno dados) {
         if(dados.nome() != null) {
             this.nome = dados.nome();
@@ -51,7 +54,6 @@ public class Aluno {
     }
 
     public void excluir() {
-        this.nome = "unknown";
         this.ativo = false;
     }
 }

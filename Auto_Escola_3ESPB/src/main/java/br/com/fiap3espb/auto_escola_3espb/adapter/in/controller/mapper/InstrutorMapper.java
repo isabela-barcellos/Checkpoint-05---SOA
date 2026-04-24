@@ -45,6 +45,7 @@ public class InstrutorMapper {
                 instrutor.getId(),
                 instrutor.getNome(),
                 instrutor.getEmail(),
+                instrutor.getCnh(),
                 instrutor.getEspecialidade()
         );
     }

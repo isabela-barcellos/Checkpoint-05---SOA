@@ -15,7 +15,7 @@ public class ValidadorHorarioAntecedencia implements ValidadorAgendamento {
         LocalDateTime agendamento = dados.data();
         LocalDateTime agora = LocalDateTime.now();
 
-        Long antecedencia = Duration.between(agora, agora).toMinutes();
+        long antecedencia = Duration.between(agora, agendamento).toMinutes();
 
         if(antecedencia < 30) {
             throw new ValidacaoException("O agendamento deve ser feito com antecêdencia mínima de 30 minutos!");

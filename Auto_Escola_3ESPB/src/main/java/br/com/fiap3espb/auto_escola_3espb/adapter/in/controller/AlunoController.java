@@ -4,6 +4,7 @@ import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.request.aluno.Da
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.request.aluno.DadosCadastroAluno;
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.response.aluno.DadosDetalhamentoAluno;
 import br.com.fiap3espb.auto_escola_3espb.adapter.in.controller.response.aluno.DadosListagemAluno;
+import br.com.fiap3espb.auto_escola_3espb.adapter.out.client.viacep.ViaCepClient;
 import br.com.fiap3espb.auto_escola_3espb.adapter.out.repository.persistence.AlunoRepository;
 import br.com.fiap3espb.auto_escola_3espb.application.core.domain.model.Aluno;
 import jakarta.transaction.Transactional;
@@ -26,12 +27,16 @@ public class AlunoController {
     @Autowired
     private AlunoRepository repository;
 
+    @Autowired
+    private ViaCepClient viaCepClient;
+
     @PostMapping
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<DadosDetalhamentoAluno> cadastraraluno(
             @RequestBody @Valid DadosCadastroAluno dados,
             UriComponentsBuilder uriBuilder) {
+        viaCepClient.validarCepExistente(dados.endereco().cep());
         Aluno aluno = new Aluno(dados);
         repository.save(aluno);
         URI uri = uriBuilder.path("/alunos/{id}").buildAndExpand(aluno.getId()).toUri();
@@ -40,7 +45,7 @@ public class AlunoController {
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemAluno>> listaralunos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        Page page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
+        Page<DadosListagemAluno> page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
         return ResponseEntity.ok(page);
     }
 
@@ -52,7 +57,7 @@ public class AlunoController {
         return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno));
     }
 
-    @DeleteMapping("/{id}") // Padrão de mercado
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluiraluno(@PathVariable Long id) {
         Aluno aluno = repository.getReferenceById(id);

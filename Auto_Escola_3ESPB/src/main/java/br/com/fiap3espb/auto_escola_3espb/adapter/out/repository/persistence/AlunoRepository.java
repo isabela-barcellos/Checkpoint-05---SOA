@@ -13,8 +13,7 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
     @Query("""
             select e.ativo
             from Aluno e
-            where
-            e.id = :id
+            where e.id = :id
             """)
     Boolean findAtivoById(Long id);
 }

@@ -16,7 +16,7 @@ public class ValidadorAlunoAtivo implements ValidadorAgendamento {
     public void validar(DadosAgendamentoInstrucao dados) {
         Boolean alunoAtivo = repository.findAtivoById(dados.idAluno());
 
-        if(!alunoAtivo) {
+        if(!Boolean.TRUE.equals(alunoAtivo)) {
             throw new ValidacaoException("Instrução não pode ser agendada para aluno inativo!");
         }
     }

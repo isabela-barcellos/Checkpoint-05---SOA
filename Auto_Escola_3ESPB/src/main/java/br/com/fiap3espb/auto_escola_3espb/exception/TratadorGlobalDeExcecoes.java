@@ -18,7 +18,7 @@ public class TratadorGlobalDeExcecoes {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity tratarBadRequest(MethodArgumentNotValidException ex) {
+    public ResponseEntity<List<DadosBadRequest>> tratarBadRequest(MethodArgumentNotValidException ex) {
         List<FieldError> erros = ex.getFieldErrors();
         return ResponseEntity.badRequest().body(erros.stream().map(DadosBadRequest::new).toList());
     }
